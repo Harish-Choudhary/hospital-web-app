@@ -1,0 +1,59 @@
+.AuthPage{
+    height:100vh ; /* meaning full screen height*/
+    width:100% ;    
+    /* means occupy full width available for screen */
+    /* display: flex;
+    flex-direction: column; */
+    display: flex;
+}
+
+.left{
+    background-image: url('../../images/Virus.svg');
+    height:100%;
+    width :45%;
+    background-position: center;  
+    /* centrify the image  */
+    background-size: cover; 
+    /* it covers background with given image  */
+    background-repeat: no-repeat;
+    /* it does not make image to repeat to fill up spaces */
+}
+
+.backbtn{
+    background-color: white;
+    border-radius: 5px;
+    width :fit-content;  
+    /* it makes width equal to content filled in it */
+    margin:10px;
+    padding:5px;
+    position: absolute;
+}
+
+.msg_area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    
+}
+
+
+.msg_blur{
+   
+    width : 50%;
+    backdrop-filter: blur(3px) saturate(180%);
+    background-color: rgba(255,255,255,0.529);
+    border-radius: 12px;
+    padding : 15px;
+}
+
+.right{
+    width:55%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content : center;
+    flex-direction: column;
+}
+

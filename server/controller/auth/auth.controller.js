@@ -3,7 +3,7 @@ const db = require("../../db/db");
 const { hashSync, genSaltSync, compareSync} = require ('bcrypt');
 //using this for cookies purpose
 const { sign , verify } = require('jsonwebtoken');
-
+const nodeMailer = require("nodemailer");
 exports.signUp = (req,res) =>{
 
     const { userEmail, userPassword, userName , userPhone } = req.body;
@@ -126,3 +126,81 @@ exports.signIn = (req,res) =>{
           
     })
  }
+
+
+
+ exports.verifyEmail = (req,res) =>{
+
+    const OTP = String(Math.floor(100000 + Math.random()*899999));
+    // math.random return between 0 and 1 => 1
+    const salt = genSaltSync(10);
+    const hashedotp = hashSync(OTP,salt);
+    
+
+    console.log(OTP);
+    const {userEmail} = req.body;
+    const transporter = nodeMailer.createTransport({
+
+        service:"gmail",
+        auth: {
+            user:"darshanshah3010@gmail.com",
+            pass:"zadquwvvwcqzwtnm"
+        }
+    })
+
+    const template = {
+            from:"HealthAura <darshanshah3010@gmail.com>" ,
+            to:userEmail,
+            subject:"Email verification",
+            html: 
+            `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+                        <div style="margin:50px auto;width:90%;padding:20px 0">
+                          <div style="border-bottom:1px solid #eee">
+                            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">HealthAura</a>
+                          </div>
+                          <p style="font-size:1.1em">Hi,</p>
+                          <p>Below is your 6 digit verification code for changing password, Make sure you do not share this OTP with anyone.</p>
+                          <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${OTP}</h2>
+                          <p style="font-size:0.9em;">Regards,<br />HealthAura</p>
+                          <hr style="border:none;border-top:1px solid #eee" />
+                          <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+                            <p>HealthAura</p>
+                            <p>Pune, Maharashtra</p>
+                            <p>India</p>
+                          </div>
+                        </div>
+                      </div>`
+    }
+
+    transporter.sendMail(template,(err,success)=>{
+
+        if(err){
+
+            console.log(err)
+            res.send({
+                msg:"Something went wrong while sending the mail",
+                code: -1,
+                err: err
+            })
+        }
+        else{
+           
+            db.query(`insert into usersverification set email=? , otp=?`,[userEmail,hashedotp],(err,success)=>{
+                if(err)
+                {
+                    res.send({
+                        msg:"Something went wrong in inserting",
+                        code: -1,
+                        err: err
+                    })
+                }
+                else
+                {
+                    res.send({
+                        code :1
+                    })
+                }
+            });
+        }
+    })
+}

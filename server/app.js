@@ -2,12 +2,14 @@ const express = require('express');
 const db =require('./db/db');
 require('dotenv').config();
 const auth =require('./router/auth/auth.router');
-
-
+const cors  = require('cors');
 const app = express();
 
 app.use(express.json());
-
+//giving permissions to frontend to make requests
+app.use(cors({
+    origin:"http://localhost:3000"
+}))
 const PORT = process.env.PORT || 5000;
 
 db.getConnection((err,conn)=>{
@@ -21,10 +23,7 @@ db.getConnection((err,conn)=>{
     }
 })
 
-
 app.use("/auth/",auth);
-
-
 
 
 app.listen(PORT,()=>{

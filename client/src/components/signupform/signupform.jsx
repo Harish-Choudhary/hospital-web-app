@@ -9,12 +9,17 @@ import Button from "@mui/material/Button"
 import CircularProgress from '@mui/material/CircularProgress';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import { validate } from 'react-email-validator'
+import Axios from 'axios'
+
+
 
 export const SignUp = () => {
 
     const [userEmail, setUserEmail] = useState("");
     const [isEmailInValid, setIsEmailInValid] = useState(false);
-    
+    const [isLoading, setIsLoading] = useState(false);
+    const [buttonText, setButtonText] = useState("Send OTP");
+    const [OTPDisabled, setOTPDisabled] = useState(true);
     // const [variable_name, function_name] = useState(initializing data type)
     // function is used to manipulate data within variable. its paramters are values of variable of usestate
     
@@ -45,6 +50,26 @@ export const SignUp = () => {
         
     }
 
+    const sendData = ()=> {
+        
+        setIsLoading(true);
+        
+        
+        //this is same thing we were doing on thunderclient ie. making post request 
+        Axios.post('http://localhost:5000/auth/verify/email',{
+            userEmail:userEmail
+        }).then(res=>{
+            console.log(res)
+            setIsLoading(false);
+            setButtonText('Verify OTP');
+            setOTPDisabled(false);
+        }).catch(err=>{
+            console.log(err)
+        });
+        
+        
+        // we are handling response sent by server in .then and .catch function
+    }
     
     return (
         <div className="signUpform">
@@ -72,13 +97,14 @@ export const SignUp = () => {
                     type="text"
                     autoComplete="off"
                     error={false}
-                    disabled={true}
+                    disabled={ OTPDisabled ? true : false}
                     >
                         <TextField />
                 </FormControl>
                 <Button
                 fullWidth
                 variant="contained"
+                onClick = {sendData}
                 sx={{
                     backgroundColor : "#2774f8",
                     padding:"10px 0",
@@ -88,7 +114,8 @@ export const SignUp = () => {
                     fontWeight:"300",
 
                 }}>
-                    Send OTP
+                    
+                    {isLoading ? <CircularProgress color="inherit" /> : buttonText}
                     </Button>
             </div>
         </div>

@@ -8,7 +8,8 @@ const app = express();
 app.use(express.json());
 //giving permissions to frontend to make requests
 app.use(cors({
-    origin:"http://localhost:3000"
+    origin:"http://localhost:3000",
+    credentials: true
 }))
 const PORT = process.env.PORT || 5000;
 

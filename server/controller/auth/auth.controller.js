@@ -6,11 +6,13 @@ const { sign , verify } = require('jsonwebtoken');
 const nodeMailer = require("nodemailer");
 exports.signUp = (req,res) =>{
 
-    const { userEmail, userPassword, userName , userPhone } = req.body;
+    const { userEmail, userPassword, userName , userPhone, userCity } = req.body;
+    console.log({ userEmail, userPassword, userName , userPhone, userCity })
     //this is hash algorithm
     const salt = genSaltSync(10);
     //password is hashed.
     const hashedPassword = hashSync(userPassword,salt);
+    console.log(hashedPassword)
 
     //check for duplicate email while registering
     db.query('select * from users where email = ?',[userEmail],(err,data)=>{
@@ -23,7 +25,7 @@ exports.signUp = (req,res) =>{
             
             if(data.length==0)
             {
-               db.query('insert into users set email=?,name=?,phone=?,password=?',[userEmail,  userName , userPhone ,hashedPassword
+               db.query('insert into users set email=?,name=?,phone=?,password=?,userCity=?',[userEmail,  userName , userPhone ,hashedPassword,userCity
             ],(err,data)=>{
                    if(err)
                    {
@@ -185,7 +187,7 @@ exports.signIn = (req,res) =>{
         }
         else{
            
-            db.query(`insert into usersverification set email=? , otp=?`,[userEmail,hashedotp],(err,success)=>{
+            db.query(`insert into usersverification set email= ? , otp=?`,[userEmail,hashedotp],(err,success)=>{
                 if(err)
                 {
                     res.send({
@@ -201,6 +203,50 @@ exports.signIn = (req,res) =>{
                     })
                 }
             });
+        }
+    })
+}
+
+
+
+
+exports.verifyOtp = (req,res)=>{
+    const {userEmail , OTP} = req.body;
+    
+    
+    db.query('select otp from usersverification where email =?',[userEmail],(err,succ)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            if(compareSync(OTP,succ[succ.length-1].otp))
+            { 
+                // once matched remove database entry for that email
+                db.query('delete from usersverification where email = ?',[userEmail],(err,succ)=>{
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    else
+                    {
+                        console.log('verified successfully');
+                        res.send({
+                            msg : 'verified successfully',
+                            code : 1
+                        })
+                    }
+                })
+            }
+            else
+            {
+                console.log('incorrect otp');
+                res.send({
+                    msg : 'incorrect otp',
+                    code : 0
+                })
+            }
         }
     })
 }

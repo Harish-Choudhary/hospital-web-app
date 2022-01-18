@@ -7,6 +7,7 @@ export const App = ()=> {
     <>
     <Routes>
       <Route path='/signup' element={<AuthPage/>}/>
+      
       {/* <Route path='/' element={<HomePage></HomePage>}></Route> */}
     </Routes>
     </>

@@ -4,13 +4,14 @@ require('dotenv').config();
 const auth =require('./router/auth/auth.router');
 const cors  = require('cors');
 const app = express();
-
+const cookieParser = require('cookie-parser')
 app.use(express.json());
 //giving permissions to frontend to make requests
 app.use(cors({
     origin:"http://localhost:3000",
     credentials: true
 }))
+app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 
 db.getConnection((err,conn)=>{

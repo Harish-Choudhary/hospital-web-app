@@ -113,7 +113,7 @@ exports.signIn = (req,res) =>{
                 else{
 
                     res.send({
-                        msg:'username or password is incorrect',
+                        msg:'Username or password is incorrect',
                         code : 0
                     })
                 }
@@ -121,7 +121,7 @@ exports.signIn = (req,res) =>{
         else{
 
             res.send({
-                msg: 'email not found try to register',
+                msg: 'Email not found. Try to register',
                 code:2
             })
         }
@@ -208,8 +208,6 @@ exports.signIn = (req,res) =>{
 }
 
 
-
-
 exports.verifyOtp = (req,res)=>{
     const {userEmail , OTP} = req.body;
     
@@ -249,4 +247,9 @@ exports.verifyOtp = (req,res)=>{
             }
         }
     })
+}
+
+
+exports.checkIsLogin = (req,res) =>{
+    console.log('this is signup page');
 }

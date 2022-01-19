@@ -32,13 +32,17 @@ export const AuthPage = () => {
         
     }
 
+    const goBack = () =>{
+
+        navigate(-1);
+    }
     
 
     //always wrap html in one tag for example <div> or <>
     return (
         <div className="AuthPage">
             <div className="left">
-                <div className="backbtn">
+                <div className="backbtn" onClick={goBack}>
                     <IconButton>
                         <ArrowBackIcon />
                     </IconButton>

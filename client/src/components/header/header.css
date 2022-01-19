@@ -1,0 +1,23 @@
+.right-header{
+    display:flex;
+    align-items: center;
+    
+}
+
+.right-header > p{
+
+    margin: 0 25px;
+    cursor : pointer;
+
+}
+.header{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 15px 20px;
+    /* background-color: red; */
+}
+
+.logo{
+    cursor : pointer;
+}

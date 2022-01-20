@@ -5,6 +5,7 @@ const auth =require('./router/auth/auth.router');
 const cors  = require('cors');
 const app = express();
 const cookieParser = require('cookie-parser')
+const hospital_dashboard = require('./router/admin/admin.router')
 app.use(express.json());
 //giving permissions to frontend to make requests
 app.use(cors({
@@ -26,7 +27,7 @@ db.getConnection((err,conn)=>{
 })
 
 app.use("/auth/",auth);
-
+app.use('/dashboard/hospital',hospital_dashboard);
 
 app.listen(PORT,()=>{
     console.log(`listening at port ${PORT}`);

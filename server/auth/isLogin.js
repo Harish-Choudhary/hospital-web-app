@@ -15,26 +15,8 @@ exports.isLogin = (req ,res)=>{
             }
             else
             {
-                const userEmail = succ.userEmail
-                db.query('select * from users where email=?',[userEmail],(err , succ)=>{
-                    if(err)
-                    {
-                        res.send({
-                            isLogin:false
-                        })
-                    }
-                    else if(succ.length == 0)
-                    {
-                        res.send({
-                            isLogin:false
-                        })
-                    }
-                    else
-                    {
-                        res.send({
-                            isLogin:true
-                        })
-                    }
+                res.send({
+                    isLogin:true
                 })
             }
         })

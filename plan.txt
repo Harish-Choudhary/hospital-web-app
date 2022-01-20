@@ -1,0 +1,84 @@
+ 
+// Hospital adminstrators table
+/*
+User Side:-
+1)Search by location/address -> fetch according to location
+2)Search by tags -> tags+city
+3)Search by hospital Name
+4) got an request for appointme5nt - > send time via mail -> this process will be done by hospital receptionist
+        
+
+5) Hospital will send user prescription + reports on user mail as well as healthaura user account
+
+Searching doctors on birla
+1)Search by hospital id in doctors table-> hospital name and tag
+2)Book an appointment of particular doctor -> post request to server 
+
+post request   ->   rahul   1112233  description -> server
+
+localhost:5000/book/ap?userName=rahul&hospitalId=112233&
+
+database madhe store -> these values......
+
+pending appointments of 112233 -> request backend -> all appointsment with that particular hospital id 
+that will be rendered as html-----book  and  reject
+book -> send time and date to our database
+we will send that 
+ 
+3) user got appointment letter via mail....user will visit
+4) User can see his/her appointments in my appointments sections where there will two options upcoming and recent
+As well as he can see all his past medical history in pdf form
+
+
+hospital-regNo  adminName  hospitalName      tags               address
+
+    112233         harish   birla hospital    cold,fracture,      pune 
+    
+
+// doctors
+dr salve -> 112233
+dr salve -> 749931
+dr anish -> 112233
+
+
+// appointments
+hospital-Id   patient-name date time   status  reports
+
+//History 
+
+userEmail  hospialId  datatime   report
+x@gmail     11122333   22/1/22   pdfs all
+y@gmail     12299992    23/1/22  pdfs all
+x@gmail     11122333    24/1/22   pdfs on next appt.
+
+//doctots
+doctor-name regNO/hospitalName tag phoneNo photo
+
+hospital     users
+    |
+    staff
+    |
+    admin
+    |
+    registerd
+    |
+
+
+
+    hospital reg no as primary key
+
+*/
+
+
+{
+    "hospitalId" : "123334",
+    "hospitalName" : "birla",
+    "adminName" : "haruish",
+    "hospitalCity"  : "Pune",
+    "hospitalPin" : "421222",
+    "hospitalPassword" : "12345",
+    "hospitalBio" : "i am in pune",
+    "hospitalTags" : "xyz,kjfsd,kjsdjl",
+    "hospitalContact" : "3124331",
+    "hospitalIframe" : "fjdklsa"
+}

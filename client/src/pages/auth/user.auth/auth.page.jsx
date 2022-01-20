@@ -1,9 +1,9 @@
 import React,{useEffect} from "react";
-import { Button } from "../../components/styledComponent/button";
-import { SignUp } from "../../components/signupform/signupform";
+import { Button } from "../../../components/styledComponent/button";
+import { SignUp } from "../../../components/signupform/signupform";
 import IconButton from "@mui/material/IconButton"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-import { Login } from "../../components/loginform/loginform";
+import { Login } from "../../../components/loginform/loginform";
 import "./auth.style.css"
 import Axios from 'axios';
 import {useNavigate} from 'react-router-dom'
@@ -67,3 +67,8 @@ export const AuthPage = () => {
         </div>
     )
 }
+
+
+
+
+

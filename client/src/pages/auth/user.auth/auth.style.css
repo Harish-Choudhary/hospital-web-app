@@ -8,7 +8,7 @@
 }
 
 .left{
-    background-image: url('../../images/Virus.svg');
+    background-image: url('../../../images/Virus.svg');
     height:100%;
     width :45%;
     background-position: center;  

@@ -8,85 +8,81 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import Button from "@mui/material/Button"
 import CircularProgress from '@mui/material/CircularProgress';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
-import { validate } from 'react-email-validator'
 import Axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
-// import './loginform.css'
 
+export const AdminLogin = () => {
 
-
-export const Login = () => {
-
-    const [userEmail, setUserEmail] = useState("");
-    const [isEmailInValid, setIsEmailInValid] = useState(false);
+    const [hospitalID, setHospitalID] = useState("");
+    const [isHospitalIdInvalid, setIsHospitalIdInvalid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    // const [buttonText, setButtonText] = useState("Sign In");
-    const [newPassword ,setNewPassword]=useState("");
+    const [passwordField ,setPasswordField]=useState("");
+    const [isPasswordInvalid,setPasswordInvalid] = useState(false);
     const [msg ,setmsg]=useState("");
 
-    // const [variable_name, function_name] = useState(initializing data type)
-    // function is used to manipulate data within variable. its paramters are values of variable of usestate
+    const hospitalIdHelper = (e) =>{
 
+            if(e.target.value.length > 0){
 
-    //useeffect runs when all html components are rendered.....ie...at last if we use array
-    // if we do not use empty array .....it runs indefinitely
-    // array contains values which gonna update after which useeffect runs each time that value updated
+                setIsHospitalIdInvalid(false);
+                setHospitalID(e.target.value);
+            }
+            else{
+
+                setIsHospitalIdInvalid(true);
+            }
+
+    }
     
     const navigate = useNavigate();
 
 
-    const setPasswordFieldHelper=(e) =>{
-        setNewPassword(e.target.value);
+    const hospitalPasswordHelper=(e) =>{
+        if(e.target.value.length > 0){
+
+            setPasswordField(e.target.value);
+            setPasswordInvalid(false);
+        }
+        else
+        {
+            setPasswordInvalid(true);
+
+        }
+
     }
 
     
     
     useEffect(() => {
 
-        document.title = "HealthAura Login"
+        document.title = "HealthAura Hospital Login"
 
     }, []);
 
     //api calls are mostly invoked in useeffect
-   
-    //defining usestate function
-    const setNewEmail = (e) => {
-
-        if (validate(e.target.value)) {
-            setIsEmailInValid(false);
-            setUserEmail(e.target.value);
-        }
-        else {
-            setIsEmailInValid(true);
-        }
-
-    }
     
     const sendData = () => {
         setIsLoading(true);
-        Axios.post('http://localhost:5000/auth/signin',{
-            userEmail : userEmail,
-            userPassword : newPassword
+        Axios.post('http://localhost:5000/dashboard/hospital/login',{
+            hospitalId : hospitalID,
+            hospitalPassword : passwordField
         },{withCredentials:true}).then(res=>
             {
                 console.log(res)
                 if(res.data.code!=1)
-                {setmsg(res.data.msg)
-                setIsLoading(false);}
+                {
+                    setmsg(res.data.msg)
+                    setIsLoading(false);}
                 else
                 {
-                    navigate('/');
+                    navigate('/dashboard/hospital');
                 }
             }).catch(err => console.log(err))
     }
 
-        
-        
-
-
     return (
-        <div className="Loginform">
+        <div className="AdminLoginform">
             {/*  */}
 
             <div className="LoginText">
@@ -94,15 +90,15 @@ export const Login = () => {
             </div>
 
             <div className="textAndButtons">
-                <div className="emailAndOtp">
+                <div className="hospitalId">
                     <FormControl
-                        label="Email"
-                        type="Email"
+                        label="Hospital Id"
+                        type="text"
                         fullWidth
                         margin="normal"
                         autoComplete="off"
-                        error={isEmailInValid}
-                        onChange={setNewEmail}
+                        error={isHospitalIdInvalid}
+                        onChange={ hospitalIdHelper }
                     >
                         <TextField />
                     </FormControl>
@@ -114,7 +110,7 @@ export const Login = () => {
                         type="password"
                         autoComplete="off"
                         error={false}
-                        onChange={setPasswordFieldHelper}
+                        onChange={hospitalPasswordHelper}
                     >
                         <TextField />
                     </FormControl>
@@ -145,5 +141,3 @@ export const Login = () => {
 
     )
 }
-
-

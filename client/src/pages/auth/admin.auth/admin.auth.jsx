@@ -4,6 +4,7 @@ import {AdminLogin} from '../../../components/admin/adminLogin/adminLogin'
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './admin.auth.css'
+import { AdminSignup } from '../../../components/admin/adminSignup/adminSignup';
 export const AdminSignUpPage = () => {
 
 
@@ -35,7 +36,7 @@ export const AdminSignUpPage = () => {
     <div className='adminAuth'>
     <div className="adminAuthForm">
     {
-                    showAdminSignup ? <AdminLogin/> : <AdminLogin/>
+                    showAdminSignup ? <AdminSignup/> : <AdminLogin/>
 
     }
                 <p>{showAdminSignup ?'Already have an account?' :"Don't have an account ? "} <span onClick={showAdminSignIn} style={{color:'#2774f8',cursor:'pointer'}}>{showAdminSignup ? 'Hospital Login' : 'Register Hospital'}</span></p>

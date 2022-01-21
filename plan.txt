@@ -80,5 +80,5 @@ hospital     users
     "hospitalBio" : "i am in pune",
     "hospitalTags" : "xyz,kjfsd,kjsdjl",
     "hospitalContact" : "3124331",
-    "hospitalIframe" : "fjdklsa"
+   // "hospitalIframe" : "fjdklsa"
 }

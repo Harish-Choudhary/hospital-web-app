@@ -214,8 +214,10 @@ export const AdminSignup = () => {
                 </div>
 
                 <div className="textAndButtons">
-                 
+                 <div style={{display:"flex"}} className="form1">
                         <FormControl
+                            style={{marginRight: '5px'}}
+                            className="formChild"
                             label="Hospital ID"
                             fullWidth
                             margin="normal"
@@ -237,7 +239,7 @@ export const AdminSignup = () => {
                         >
                             <TextField />
                         </FormControl>
-                
+                </div>
                         <FormControl
                             label="Admin  Name"
                             fullWidth

@@ -1,9 +1,12 @@
 const {verify} = require('jsonwebtoken')
 const db = require('../db/db')
 
+// Authtoken Authtoken -> identification
+// user => email'l
+// 134324
 
 exports.isLogin = (req ,res)=>{
-    const userToken = req.cookies.userToken
+    const userToken = req.cookies.AuthToken
     if(userToken)
     {
         verify(userToken , process.env.secretKey ,(err, succ)=>{
@@ -15,9 +18,19 @@ exports.isLogin = (req ,res)=>{
             }
             else
             {
-                res.send({
+                if(succ.hospitalId){
+                    res.send({
+                        id: succ.hospitalId,
+                        isLogin:true
+                    })
+                }
+                else if(succ.userEmail){
+                    res.send({
+                    email: succ.userEmail,
                     isLogin:true
-                })
+                    })
+                }
+               
             }
         })
     }
@@ -29,4 +42,3 @@ exports.isLogin = (req ,res)=>{
     }
     console.log(userToken)
 }
-

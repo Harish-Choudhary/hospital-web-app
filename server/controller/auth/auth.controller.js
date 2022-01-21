@@ -40,7 +40,7 @@ exports.signUp = (req,res) =>{
                        })
 
 
-                       res.cookie("userToken",userToken,{
+                       res.cookie("AuthToken",userToken,{
                            expires : new Date(Date.now() + 86400000)
                        })
 
@@ -99,7 +99,7 @@ exports.signIn = (req,res) =>{
                     })
 
 
-                    res.cookie("userToken",userToken,{
+                    res.cookie("AuthToken",userToken,{
                         expires : new Date(Date.now() + 86400000)
                     })
 

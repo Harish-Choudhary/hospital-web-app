@@ -1,0 +1,14 @@
+.Upper{
+    text-align  : center;
+    /* font-weight : 400; */
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+.Upper > .DashboardLogo > h1{
+    font-weight: 500;
+}
+
+.css-10hburv-MuiTypography-root{
+    font-family: poppins;
+}

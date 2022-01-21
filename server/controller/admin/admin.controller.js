@@ -27,7 +27,7 @@ exports.hospitalRegn = (req,res) => {
                         },process.env.secretKey,{
                             expiresIn : '24h'
                         })
-                        res.cookie('hospitalAuthToken',hospitalAuthToken,{expires : new Date(Date.now() + 86400000)});
+                        res.cookie('AuthToken',hospitalAuthToken,{expires : new Date(Date.now() + 86400000)});
 
                         res.send({
                             code : 1,
@@ -74,7 +74,7 @@ exports.hospitalLogin = (req,res) =>{
                         })
     
     
-                        res.cookie("hospitalAuthToken",hospitalAuthToken,{
+                        res.cookie("AuthToken",hospitalAuthToken,{
                             expires : new Date(Date.now() + 86400000)
                         })
     

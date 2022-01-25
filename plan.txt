@@ -73,7 +73,7 @@ hospital     users
 {
     "hospitalId" : "123334",
     "hospitalName" : "birla",
-    "adminName" : "haruish",
+    "adminName" : "harish",
     "hospitalCity"  : "Pune",
     "hospitalPin" : "421222",
     "hospitalPassword" : "12345",
@@ -82,3 +82,6 @@ hospital     users
     "hospitalContact" : "3124331",
    // "hospitalIframe" : "fjdklsa"
 }
+
+
+Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3NwaXRhbElkIjoiMTIzMzM0IiwiaWF0IjoxNjQzMTMyNDg4LCJleHAiOjE2NDMyMTg4ODh9.mSNfITjqiubcH_rRSlWuYGyEWjaly6NmbGD8ogcjQCo

@@ -5,24 +5,27 @@ const fileUpload = require('express-fileupload')
 
 const { sign } = require('jsonwebtoken');
 
-// Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+const {verify } = require('jsonwebtoken')
+
 
 
 
 exports.hospitalRegn = (req, res) => {
+    // console.log(req)
+    const hospitalImg = req.file.filename;
 
-    console.log(req.file);
-    const hospitalImg = req.file.path;
-
-    const { hospitalId, hospitalName, adminName, hospitalCity, hospitalPin, hospitalPassword, hospitalBio, hospitalTags, hospitalContact, hospitalIframe } = req.body;
+    const { hospitalId, hospitalName, adminName, hospitalCity, hospitalPin, hospitalPassword, hospitalBio, hospitalTags, hospitalContact } = req.body;
+    console.log(hospitalBio)
     const hashedPassword = hashSync(hospitalPassword, 10);
+
     db.query('select * from hospital_registration where hospital_registration_nos = ?', [hospitalId], (err, succ) => {
         if (err) {
             console.log(err);
         }
         else {
             if (succ.length == 0) {
-                db.query('insert into hospital_registration set hospital_registration_nos=?,user_name=?,hospital_name=?,contact_nos=?,password=?,tags=?,city=?,pincode=?,about=?,iframe=?', [hospitalId, adminName, hospitalName, hospitalContact, hashedPassword, hospitalTags, hospitalCity, hospitalPin, hospitalBio, hospitalIframe], (err, succ) => {
+
+                db.query('insert into hospital_registration set hospital_registration_nos=?,user_name=?,hospital_name=?,contact_nos=?,password=?,tags=?,city=?,pincode=?,iframe=?,about=?, image=?', [hospitalId, adminName, hospitalName, hospitalContact, hashedPassword, hospitalTags, hospitalCity, hospitalPin,"1345", hospitalBio,hospitalImg], (err, succ) => {
                     if (err) {
                         console.log(err);
                     }
@@ -111,6 +114,54 @@ exports.hospitalLogin = (req, res) => {
 
 
 exports.hospitalAddDoctor = (req, res) => {
-    console.log('Hellllo')
     
+    const hospitalToken = req.cookies.AuthToken
+    console.log(hospitalToken)
+    let hospitalRegNo = "";
+    if(hospitalToken){
+        verify(hospitalToken, process.env.secretKey, (err,token) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                hospitalRegNo = token.hospitalId;
+            }
+        })
+    }
+    // regno 	name 	tag 	phone 	bio photo
+
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3NwaXRhbElkIjoiMTIzNDU2IiwiaWF0IjoxNjQzMjIxNjU0LCJleHAiOjE2NDMzMDgwNTR9.qkq3cX01K_2cPbul5gHjUiEvD4aIweedv4zNee1HiGk
+
+    const {  name ,  tag , phone, bio } = req.body;
+    
+    db.query('insert into doctors set regno=?,name=?,tag=?,phone=?,bio=?,photo=?', [hospitalRegNo, name, tag, phone, bio,"abc"], (err, succ) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.send({
+                            code: 1,
+                            msg: 'doctor added successfully'
+                        });
+                    }
+                })
+           
 }
+
+
+
+
+
+
+
+
+// {
+       
+//     "regno" : "123",
+//     "name":"darshan",
+//     "tag":"covid",
+//     "phone":"123456678",
+//     "bio":"Specialist"
+    
+    
+// }

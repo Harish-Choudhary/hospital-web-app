@@ -18,7 +18,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import './admin.sidebar.css'
+import { useNavigate } from 'react-router-dom'
 export const SideBar = (props) => {
+
+    const navigate = useNavigate()
 
     const [openDoctors, setOpenDoctors] = React.useState(false);
     const [openAppointments, setOpenAppointments] = React.useState(false);
@@ -31,6 +34,10 @@ export const SideBar = (props) => {
     const handleClickAppointments = () => {
         setOpenAppointments(!openAppointments);
     };
+
+    const goToDashboard = () => {
+        navigate("/dashboard/hospital")
+    }
 
 
     return (
@@ -45,7 +52,7 @@ export const SideBar = (props) => {
                 <Box sx={{fontFamily: "poppins"}}>
                     <List sx={{fontFamily: "poppins"}}>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={goToDashboard}>
                                 <ListItemIcon>
                                     <PaletteIcon />
                                 </ListItemIcon>

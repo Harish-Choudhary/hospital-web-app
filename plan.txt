@@ -51,9 +51,9 @@ x@gmail     11122333   22/1/22   pdfs all
 y@gmail     12299992    23/1/22  pdfs all
 x@gmail     11122333    24/1/22   pdfs on next appt.
 
-//doctots
-doctor-name regNO/hospitalName tag phoneNo photo
-
+//doctors
+doctor-name regNO/hospitalName tag phoneNo photo bio
+regno 	name 	tag 	phone 	bio photo
 hospital     users
     |
     staff
@@ -85,3 +85,6 @@ hospital     users
 
 
 Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3NwaXRhbElkIjoiMTIzMzM0IiwiaWF0IjoxNjQzMTMyNDg4LCJleHAiOjE2NDMyMTg4ODh9.mSNfITjqiubcH_rRSlWuYGyEWjaly6NmbGD8ogcjQCo
+
+
+	regno 	name 	tag 	phone 	bio 

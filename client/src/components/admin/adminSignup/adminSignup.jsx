@@ -48,7 +48,7 @@ export const AdminSignup = () => {
     const [Specialities, setSpecialities] = useState("");
     const [isSpecialityValid, setIsSpecialityValid] = useState(true);
     const [hospitalInformation, setHospitalInformation] = useState("");
-    const [isInformationValid, setIsInformationValid] = useState(true);
+    const [isInformationValid, setIsInformationValid] = useState(false);
     const [city, setCity] = useState("");
     const [isCityValid, setIsCityValid] = useState(true);
     const [imageFile,setImageFile] = useState({});
@@ -66,7 +66,6 @@ export const AdminSignup = () => {
 
 
     const selectPhoto=(e)=>{
-        console.log("Heyyyy")
         console.log(e.target.files);
         setImageFile(e.target.files[0]);
         setFileName(e.target.files[0].name);
@@ -76,7 +75,7 @@ export const AdminSignup = () => {
 
     const setInformationField = (e) => {
 
-        if (e.target.value > 0) {
+        if (e.target.value.length != 0) {
 
             setIsInformationValid(false);
             setHospitalInformation(e.target.value);
@@ -196,18 +195,20 @@ export const AdminSignup = () => {
 
             let formData = new FormData();
             formData.append("file", imageFile);
-            formData.append('data',{ 
-                
-                hospitalId : hospitalId,
-                hospitalName: hospitalName,
-                adminName: adminName,
-                hospitalCity: city,
-                hospitalPin: pincode,
-                hospitalPassword: newPassword,
-                hospitalBio: hospitalInformation,
-                hospitalTags: Specialities,
-                hospitalContact: phone});
+            formData.append('hospitalId', hospitalId)
+            formData.append('hospitalName', hospitalName)
+            formData.append('adminName', adminName)
+            formData.append('hospitalCity', city)
+            formData.append('hospitalPin', pincode)
+            formData.append('hospitalBio', hospitalInformation)
+            formData.append('hospitalTags', Specialities)
+            formData.append('hospitalContact', phone)
+            formData.append('hospitalPassword', newPassword)
+            // formData.append('iframe', iframe)
     
+
+        
+            // console.log(formData);
             setIsLoading(true);
             Axios.post('http://localhost:5000/dashboard/hospital/register', formData , { withCredentials: true },{
                 headers : {
@@ -294,7 +295,7 @@ export const AdminSignup = () => {
                     margin="normal"
                     type="text"
                     autoComplete="off"
-                    error={!isInformationValid}
+                    error={isInformationValid}
                     onChange={setInformationField}
                 >
                     <TextField />

@@ -19,7 +19,18 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import './admin.sidebar.css'
 import { useNavigate } from 'react-router-dom'
-export const SideBar = (props) => {
+
+
+
+
+// const [showDashboard,setShowDashboard] = useState(true);
+// const [showAddDoctor, setShowAddDoctor] = useState(false);
+// const [showDoctors, setShowDoctors] = useState(false);
+// const [showAppointments, setShowAppointments] = useState(false);
+
+
+
+export const SideBar = ({setShowAddDoctor, setShowAppointments, setShowDashboar, setShowDoctors}) => {
 
     const navigate = useNavigate()
 
@@ -35,11 +46,35 @@ export const SideBar = (props) => {
         setOpenAppointments(!openAppointments);
     };
 
-    const goToDashboard = () => {
-        navigate("/dashboard/hospital")
+    const setAddDoctor = () => {
+        setShowAddDoctor(true)
+        setShowAppointments(false);
+        setShowDashboar(false);
+        setShowDoctors(false)
     }
 
+    const showAllDoctPage = () => {
+        setShowAddDoctor(false)
+        setShowAppointments(false);
+        setShowDashboar(false);
+        setShowDoctors(true)
+    }
 
+    const showAppointments = () => {
+        setShowAddDoctor(false)
+        setShowAppointments(true);
+        setShowDashboar(false);
+        setShowDoctors(false)
+    }
+
+    const showDashboard = () => {
+        setShowAddDoctor(false)
+        setShowAppointments(false);
+        setShowDashboar(true);
+        setShowDoctors(false)
+    }
+
+    
     return (
         <div className="Sidebar">
             <div className='Upper'>
@@ -51,8 +86,8 @@ export const SideBar = (props) => {
             <div className='Lower'>
                 <Box sx={{fontFamily: "poppins"}}>
                     <List sx={{fontFamily: "poppins"}}>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={goToDashboard}>
+                        <ListItem disablePadding onClick={showDashboard}>
+                            <ListItemButton>
                                 <ListItemIcon>
                                     <PaletteIcon />
                                 </ListItemIcon>
@@ -60,15 +95,7 @@ export const SideBar = (props) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding >
-                            {/* <ListItemButton>
-                                <ListItemIcon>
-                                    <PaletteIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Doctors" />
-                            </ListItemButton> */}
                         </ListItem>
-
-
 
                         <ListItemButton onClick={handleClickDoctor}>
                             <ListItemIcon>
@@ -78,7 +105,7 @@ export const SideBar = (props) => {
                             {openDoctors ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
                         <Collapse in={openDoctors} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
+                            <List component="div" disablePadding onClick={setAddDoctor}>
                                 <ListItemButton sx={{ pl: 4 }}>
                                     <ListItemIcon>
                                         <AddIcon />
@@ -86,7 +113,7 @@ export const SideBar = (props) => {
                                     <ListItemText primary="Add Doctor" />
                                 </ListItemButton>
                             </List>
-                            <List component="div" >
+                            <List component="div" onClick={showAllDoctPage}>
                                 <ListItemButton sx={{ pl: 4 }}>
                                     <ListItemIcon>
                                         <VisibilityIcon />
@@ -105,18 +132,10 @@ export const SideBar = (props) => {
                         </ListItemButton>
                         <Collapse in={openAppointments} timeout="auto" unmountOnExit>
 
-                            <List component="div" disablePadding>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
-                                        <AddIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Add Appointments" />
-                                </ListItemButton>
-                            </List>
 
-                            <List component="div" disablePadding>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
+                            <List component="div" disablePadding onClick={showAppointments}>
+                                <ListItemButton sx={{ pl: 4 }} >
+                                    <ListItemIcon >
                                         <VisibilityIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="All Appointments" />

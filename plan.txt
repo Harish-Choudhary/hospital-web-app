@@ -88,3 +88,22 @@ Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3NwaXRhbElkIjoiMTIzMzM0IiwiaWF
 
 
 	regno 	name 	tag 	phone 	bio 
+
+
+
+
+
+                    Admin homePage  [ number of doctors, number of appointments, number of pending appointments]
+
+
+    1)Show doctors [number of doctors]
+    2)Add doctors (this will increase the count of doctors).
+    3)Show appointments [number of appointments]
+   
+
+
+                            Admin homePage[numb]
+                            |
+      ______________________|______________________________________________
+      |
+      1)Show Doctors    2)Add Doctors   3)App

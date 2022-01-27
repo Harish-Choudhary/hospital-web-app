@@ -3,14 +3,11 @@ import { FormControl, TextField } from "@mui/material";
 import CreatableSelect from 'react-select/creatable'
 import { SideBar } from "../../../components/admin/sidebar/admin.sidebar";
 import '../adminHome/AdminHomePage.css'
-export const AddDoctor = () => {
+export const AddDoctor = (props) => {
     return (
-        <div>
+        <div style={props.shouldShow ? {display:"block"} : {display:"none"}}>
             <div className="homePage">
-              <div className='sidebar'>
-                  <SideBar/>
-
-              </div>
+              
               <div className = "dashBoardDiv">
               <FormControl
                 label="Doctor Name"

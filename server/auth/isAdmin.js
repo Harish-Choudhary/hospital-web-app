@@ -19,6 +19,11 @@ exports.isAdmin = (req ,res)=>{
                     db.query('select * from hospital_registration where hospital_registration_nos = ?',[succ.hospitalId],(err,data)=>{
                         if(err)
                             console.log(err);
+                        else if(data.length == 0){
+                            res.send({
+                                isAdmin:false
+                            })
+                        }
                         else{
                             // let newData = data[0].slice(0,data[0].length-1);
                             const {hospital_registration_nos, hospital_name , city, pincode, about, tags, contact_nos, iframe, image} = data[0];

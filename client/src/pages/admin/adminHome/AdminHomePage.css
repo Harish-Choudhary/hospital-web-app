@@ -15,3 +15,11 @@
     height: 100%;
     margin: 100px auto;
 }
+
+.showw{
+    display: block;
+}
+
+.hidee{
+    display: none
+}

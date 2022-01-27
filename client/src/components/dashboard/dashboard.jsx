@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import { Data } from '../data/data';
 import './dashboard.css' 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
   
         const [currentAppointments, setCurrentAppointments] = useState("10");
         const [pendingAppointments, setPendingAppointments] = useState("10");
@@ -20,10 +20,10 @@ export const Dashboard = () => {
       return (
 
 
-        <div className="dashBoard">
+        <div className="dashBoard" style={props.shouldShow ? {display: "grid"} : {display: "none"}}>
 
-        {arrayOfObjects.map(({ data, display} ) => (
-                 <Data data = {data} display = {display} />
+        {arrayOfObjects.map(({ data, display, index} ) => (
+                 <Data data = {data} display = {display} key={index}/>
         ))}
 
         </div>

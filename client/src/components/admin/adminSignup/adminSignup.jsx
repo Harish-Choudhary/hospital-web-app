@@ -221,7 +221,7 @@ export const AdminSignup = () => {
 
 
 
-                    navigate('/'); //front end will make get request to backend
+                    navigate('/dasboard/hospital'); //front end will make get request to backend
                 }
                 else {
 

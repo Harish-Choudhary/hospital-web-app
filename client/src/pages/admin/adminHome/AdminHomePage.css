@@ -11,15 +11,15 @@
 
 .dashBoardDiv{
 
-    
+    width: 80%;
     height: 100%;
     margin: 100px auto;
 }
 
-.showw{
+/* .showw{
     display: block;
 }
 
 .hidee{
     display: none
-}
+} */

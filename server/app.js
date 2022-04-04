@@ -28,7 +28,8 @@ db.getConnection((err, conn) => {
 
 app.use("/auth/", auth);
 app.use('/dashboard/hospital/', hospital_dashboard);
-
+app.use("/hospitals", require("./router/user/hospital.router.js"))
+app.use("/book", require('./router/appointments/bookAppointments.router.js'))
 app.listen(PORT, () => {
     console.log(`listening at port ${PORT}`);
 });

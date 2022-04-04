@@ -1,137 +1,137 @@
 .adminRight {
-    /* max-height: 80vh; */
-    /* overflow: auto; */
-  }
-  
-  .adminLeft {
-    width: 18%;
-  }
-  
-  .accountSettingTabs {
-    margin: 20px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .accountSettingTabs > div {
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 500;
-    padding: 10px;
-    border: 2px solid white;
-  }
-  
-  .accountSettingTabs > div:last-child {
-    margin-left: 20px;
-    /* border-bottom: 2px solid #333; */
-  }
-  
-  .displayProfile {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .generalProfile {
-    margin: 20px;
-  }
-  
-  .profileHeading {
+  /* max-height: 80vh; */
+  /* overflow: auto; */
+}
+
+.adminLeft {
+  width: 18%;
+}
+
+.accountSettingTabs {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.accountSettingTabs > div {
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 10px;
+  border: 2px solid white;
+}
+
+.accountSettingTabs > div:last-child {
+  margin-left: 20px;
+  /* border-bottom: 2px solid #333; */
+}
+
+.displayProfile {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.generalProfile {
+  margin: 20px;
+}
+
+.profileHeading {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #333;
+}
+.avatarSection {
+  display: flex;
+  align-items: center;
+}
+
+.imageSelectorBtn {
+  padding: 8px 10px;
+  background-color: #e6e6e69c;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-right: 15px;
+  color: #1976d2;
+}
+
+.userInfoDisplay {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px 10px 0;
+}
+
+.userInfoDisplay > div:last-child {
+  margin-left: 100px;
+}
+
+.userInfoHospitalName,
+.userInfoAdminName {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.userInfoHospitalValue,
+.userInfoAdminValue {
+  padding: 8px 10px;
+  background-color: #e6e6e65e;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.generalProfile {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(0, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+}
+
+.displayProfile {
+  grid-area: 1 / 1 / 2 / 4;
+}
+.changePassword {
+  grid-area: 1 / 4 / 2 / 6;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 10px;
+  height: 200px;
+}
+.closeAccount {
+  grid-area: 2 / 4 / 3 / 6;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 20px;
+  border-radius: 10px;
+    width: 100%;
+    position: relative;
+    bottom: 180px;
+}
+
+
+.headingTitle{
     margin-bottom: 20px;
     font-weight: 500;
     font-size: 18px;
     color: #333;
-  }
-  .avatarSection {
-    display: flex;
-    align-items: center;
-  }
-  
-  .imageSelectorBtn {
-    padding: 8px 10px;
+}
+
+.metaDataForCPCA{
+    color: #757575;
+    margin: 10px 0;
+}
+
+.changePasswordBtn{
+    padding: 10px 0;
     background-color: #e6e6e69c;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
     margin-right: 15px;
     color: #1976d2;
-  }
-  
-  .userInfoDisplay {
-    display: flex;
-    align-items: center;
-    margin: 20px 0px 10px 0;
-  }
-  
-  .userInfoDisplay > div:last-child {
-    margin-left: 100px;
-  }
-  
-  .userInfoHospitalName,
-  .userInfoAdminName {
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .userInfoHospitalValue,
-  .userInfoAdminValue {
-    padding: 8px 10px;
-    background-color: #e6e6e65e;
-    border-radius: 6px;
-    font-size: 14px;
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .generalProfile {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(0, 1fr);
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
-  }
-  
-  .displayProfile {
-    grid-area: 1 / 1 / 2 / 4;
-  }
-  .changePassword {
-    grid-area: 1 / 4 / 2 / 6;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 20px;
-    border-radius: 10px;
-    height: 200px;
-  }
-  .closeAccount {
-    grid-area: 2 / 4 / 3 / 6;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 20px;
-    border-radius: 10px;
-      width: 100%;
-      position: relative;
-      bottom: 180px;
-  }
-  
-  
-  .headingTitle{
-      margin-bottom: 20px;
-      font-weight: 500;
-      font-size: 18px;
-      color: #333;
-  }
-  
-  .metaDataForCPCA{
-      color: #757575;
-      margin: 10px 0;
-  }
-  
-  .changePasswordBtn{
-      padding: 10px 0;
-      background-color: #e6e6e69c;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-right: 15px;
-      color: #1976d2;
-      width: 100%;
-      text-align: center;
-  }
+    width: 100%;
+    text-align: center;
+}

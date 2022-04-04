@@ -1,44 +1,43 @@
-
 .adminLeft {
-    width: 18%;
-  }
-  
-  .doctorsList {
-    margin: 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-  }
-  
-  .doctorsList > .singleDoctorBox {
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    padding: 10px 15px;
-    border-radius: 10px;
-  }
-  
-  .imgAndName {
-    display: flex;
-    align-items: center;
-  }
-  
-  .imgAndName > p {
-    margin-left: 10px;
-    font-weight: 500;
-    font-size: 18px;
-  }
-  
-  .doctorBio {
-    margin-top: 10px;
-  }
-  
-  .adminRight{
-      max-height: 100vh;
-      overflow: auto;
-  }
-  
-  .singleDocBoxActions{
-      width: 100%;
-  }
+  width: 18%;
+}
+
+.doctorsList {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.doctorsList > .singleDoctorBox {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.imgAndName {
+  display: flex;
+  align-items: center;
+}
+
+.imgAndName > p {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.doctorBio {
+  margin-top: 10px;
+}
+
+.adminRight{
+    max-height: 100vh;
+    overflow: auto;
+}
+
+.singleDocBoxActions{
+    width: 100%;
+}

@@ -1,0 +1,79 @@
+.hospitalCards {
+  max-width: 85%;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.hospitalListingHeader {
+  background-color: #383cc1;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hospitalListingHeaderSpan {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.hospitalListingHeaderSpan > input {
+  width: 70%;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  font-size: 20px;
+}
+
+.hospitalListingHeaderTabs {
+  background-color: rgba(240, 248, 255, 0.342);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.tabsButtonLPheader {
+  padding: 10px 20px;
+  margin: 10px;
+  outline: none;
+  border-radius: 10px;
+  border: none;
+  font-family: poppins;
+  cursor: pointer;
+  background-color: #ebe2e2af;
+  color: white;
+  color: #333;
+  font-weight: 500;
+}
+
+.activeTab {
+  background-color: #383cc1;
+  color: white;
+}
+
+.searchByLocationBtn {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: poppins;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: transparent;
+}
+
+.searchByLocationAndTreatmentDiv > input {
+  padding: 15px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  margin: 0px 5px;
+  width: 30%;
+}

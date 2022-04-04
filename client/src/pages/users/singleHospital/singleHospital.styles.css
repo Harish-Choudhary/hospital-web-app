@@ -1,0 +1,100 @@
+.aboutHospitalInfoArea {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 20px 30px;
+  padding: 20px;
+  border-radius: 10px;
+  color: #333;
+}
+
+.singleHospitalPageH2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #383cc1;
+  padding: 10px 0;
+}
+
+.contactSectionSHP {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  margin: 20px 30px;
+}
+
+.contactSectionSHPchild {
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 0px 10px;
+}
+
+.contactSectionSHPchild > p {
+  margin: 6px 0;
+  color: #383cc1;
+  font-weight: 500;
+}
+
+.shpcontactspan {
+  display: flex;
+  align-items: center;
+}
+
+.shpcontactspan > span {
+  margin: 0px 10px;
+}
+
+.doctorsListArea {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 25px;
+  grid-row-gap: 15px;
+  margin: 20px 30px;
+
+}
+
+.singleDoctor {
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+
+}
+
+.singleDoctor > .docImage {
+  width: 30%;
+  height: 100%;
+}
+
+.singleDoctor > .docImage > img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+
+}
+
+.doctName{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.docShortInfo{
+  font-size: 12px;
+  color: #333;
+}
+
+.docInfo{
+  width: 70%;
+  padding: 0px 10px;
+  position: relative;
+}
+
+.bookAppoitBtn{
+  position: absolute;
+  top: 0;
+}

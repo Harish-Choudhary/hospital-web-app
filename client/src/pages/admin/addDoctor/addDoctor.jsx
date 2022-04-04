@@ -1,127 +1,74 @@
-import React,{useState} from "react";
-import { FormControl, TextField } from "@mui/material";
-import CreatableSelect from 'react-select/creatable'
-import { SideBar } from "../../../components/admin/sidebar/admin.sidebar";
-import '../adminHome/AdminHomePage.css'
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
-import Axios from 'axios';
+import { styled } from "@mui/material/styles";
+import { Avatar, Button, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { AdminHeader } from "../../../components/admin/header/header";
+import { SideBar } from "../../../components/admin/sidebar/sidebar.component";
+import "./adddoctor.css";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const Input = styled('input')({
-    display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
 
+export const AddDoctor = () => {
+  const [doctorImage, setDoctorImage] = useState("");
+
+  const [doctorName, setDoctorName] = useState("")
+  const [doctorPhone, setDoctorPhone] = useState("")
+  const [doctorBio, setDoctorBio] = useState("")
+  const [doctorTags, setDoctorTags] = useState("")
 
 
-export const AddDoctor = (props) => {
-    const [doctorName , setDoctorName] = useState('')
-    const [doctorInfo , setDoctorInfo] = useState('')
-    const [doctorPhone , setDoctorPhone] =  useState('')
-    const [doctorTags , setDoctorTags] = useState("");
-    const [doctorImage , setDoctorImage] = useState();
-    let tags =[];
-    const selectDoctorImage = (e) =>{
-        setDoctorImage(e.target.files[0]);
-    }
+  const uploadDoctorImage = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setDoctorImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
-    const setDocValue = (e) => {
-        setDoctorName(e.target.value)
-    }
+  console.log(doctorImage)
 
-    const DoctorInfoHelper = (e)=>{
-        setDoctorInfo(e.target.value);
-    }
-    
-    const TagsHelper=(e)=>{
-        for(let i = 0; i<e.length; i++){
-            tags.push(e[i].value)
-        }
-        setDoctorTags(tags.toString())
-    }
-    
-    const PhoneHelper=(e)=>{
-        setDoctorPhone(e.target.value);
-    }
-    console.log(doctorTags)
-    const addDoctor=()=>{
-        let formData = new FormData();
-        formData.append('doctorName',doctorName);
-        formData.append('doctorPhone',doctorPhone);
-        formData.append('doctorInfo',doctorInfo);
-        formData.append('doctorTags',doctorTags);
-        formData.append('file',doctorImage);
-        Axios.post('http://localhost:5000/dashboard/hospital/add/doctor',formData,{withCredentials:true},{
-            headers : {
-                "Content-Type" : "multipart/form-data"
-            }
-        })
-    }
-    return (
-        <div style={props.shouldShow ? { display: "block" } : { display: "none" }}>
+  return (
+    <div className="addDoctorComponent">
+      <div className="adminLeft">
+        <SideBar active={"Add Doctor"} />
+      </div>
 
+      <div style={{ width: "82%" }}>
+        <AdminHeader />
 
-            <div className="homePage">
-                
-                <div className="dashBoardDiv">
-                <label htmlFor="contained-button-file">
-                    <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={selectDoctorImage}/>
-                    <Button variant="contained" component="span">
-                        Upload Image
-                    </Button>
-                </label>
-                    <FormControl
-                        label="Doctor Name"
-                        fullWidth
-                        margin="normal"
-                        type="text"
-                        autoComplete="off"
-                        error={false}
-                    // onChange={setNameField}
-                    >
-                        <TextField label="Doctor Name" onChange={setDocValue}/>
-                    </FormControl>
+        <div className="addDoctorForm">
+          <div class="addDoctorFormContainer">
+            <label htmlFor="icon-button-file">
+              <Input
+                onChange={uploadDoctorImage}
+                accept="image/*"
+                id="icon-button-file"
+                type="file"
+              />
+              <Avatar sx={{width: '50px', height: "50px"}} src={doctorImage}>
+                {doctorImage.length > 0 ? null : <PhotoCamera />}
+              </Avatar>
+            </label>
+            <TextField margin="normal" onChange={(e) => setDoctorName(e.target.value)} fullWidth label="Doctor Full Name" />
+            <TextField margin="normal" onChange={(e) => setDoctorPhone(e.target.value)} fullWidth label="Doctor Phone" />
+            <TextField margin="normal" onChange={(e) => setDoctorBio(e.target.value)} fullWidth label="Doctor Bio" />
+            <TextField margin="normal" onChange={(e) => setDoctorTags(e.target.value)} fullWidth label="Doctor Tags" />
 
-                    <FormControl
-                        label="Doctors Information"
-                        fullWidth
-                        margin="normal"
-                        type="text"
-                        autoComplete="off"
-                        error={false}
-                    // onChange={setNameField}
-                    >
-                        <TextField label="Doctors Information" onChange={DoctorInfoHelper}/>
-                    </FormControl>
-
-                    <FormControl
-                        label="Phone"
-                        fullWidth
-                        margin="normal"
-                        type="text"
-                        autoComplete="off"
-                        error={false}
-                    >
-                        <TextField label="Phone" onChange={PhoneHelper}/>
-                    </FormControl>
-
-                    <div style={{marginTop: "20px"}}>
-                    <CreatableSelect
-                        isMulti
-                        placeholder="Tags"
-                        onChange={TagsHelper}
-                    />
-                    </div>
-                    
-
-                    <Button sx={{
-                        marginTop: '20px'
-                    }} variant='contained' onClick={addDoctor}>Add Doctor</Button>
-                </div>
-            </div>
-
-
+            <Button
+              variant="contained"
+              sx={{
+                margin: "10px 0",
+              }}
+            >
+              Add Doctor
+            </Button>
+          </div>
         </div>
-    );
-
-}
+      </div>
+    </div>
+  );
+};

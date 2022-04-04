@@ -1,0 +1,28 @@
+
+
+.singleHospitalHeroArea{
+    background-color: #383cc1;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 0px 50px;
+}
+
+.rightTitleHHA > h1{
+    font-size: larger;
+    font-weight: 500;
+}
+
+.rightTitleHHA > p{
+    font-size: samll;
+    font-weight: 400;
+    color: rgb(238, 237, 237);
+}
+
+.singleHospitalHeroAreaImage{
+    width: 150px;
+    border-radius: 10px;
+    border: 2px solid white;
+}

@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
 // import {AdminSignup} from '../../../components/admin/adminSignup/adminSignup'
-import {AdminLogin} from '../../../components/admin/adminLogin/adminLogin'
+import {AdminLogin} from '../../../../components/admin/adminLogin/adminLogin'
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './admin.auth.css'
-import { AdminSignup } from '../../../components/admin/adminSignup/adminSignup';
+import { AdminSignup } from '../../../../components/admin/adminSignup/adminSignup';
 export const AdminSignUpPage = () => {
 
 

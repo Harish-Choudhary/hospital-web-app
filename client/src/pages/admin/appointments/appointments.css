@@ -1,0 +1,78 @@
+.adminLeft{
+    width: 18%;
+}
+
+
+.appointmentComponent {
+    max-width: 90%;
+    margin: auto;
+  }
+  
+  .appointmentsList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+  
+  .appointmentBox {
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px;
+  }
+  
+  .paitentName {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .appointmentMetaData {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+  }
+  
+  .metaDataBox {
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    margin: 5px auto;
+    padding: 5px;
+  }
+  
+  .metaDataBox > img {
+    width: 30px;
+    margin: auto;
+  }
+  
+  .metaDataBox > p {
+    font-size: 13px;
+    color: #757575;
+  }
+  
+  
+  .appointmentFor {
+      width: 100%;
+      border-radius: 3px;
+      box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+      margin: 5px auto;
+      padding: 5px;
+      font-size: 16px;
+      color: #757575;
+  }
+  
+  .actions{
+      margin-top: 10px;
+  }
+
+  
+.adminRight{
+    max-height: 100vh;
+    overflow: auto;
+}

@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AdminHeader } from "../../../components/admin/header/header";
 import { SideBar } from "../../../components/admin/sidebar/sidebar.component";
 import "./adminHome.styles.css";
 import doctorImage from "../../../images/medical-team.png";
 import completedAppointmentsImage from "../../../images/completed-task.png";
 import appointmentsImage from "../../../images/deadline.png";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AdminHomePage = () => {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    Axios.get('http://localhost:5000/auth/checkIsLogin',{withCredentials : true}).then(res=>{
+        if(!res.data.isLogin)
+        {
+            navigate('/');
+        }
+    })
+    
+}, [])
+
+
   const totalAppointments = 6;
   const compAppointment = 2;
   const compAppointmentPercentage = (compAppointment/totalAppointments)*100;
-
-  
-
 
   return (
     <div style={{ display: "flex" }}>
@@ -66,7 +79,6 @@ export const AdminHomePage = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

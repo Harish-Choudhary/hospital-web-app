@@ -27,8 +27,17 @@ export const Appointments = () => {
       }
     });
 
+    Axios.get("http://localhost:5000/auth/checkIsLogin", {
+      withCredentials: true,
+    }).then((res) => {
+      if (!res.data.isLogin) {
+        navigate("/");
+      }
+    });
+
     getAppointments();
   }, []);
+
 
   const getAppointments = () => {
     Axios.get(`http://localhost:5000/book/show/appointments/${hospitalId}`, {
@@ -72,17 +81,19 @@ export const Appointments = () => {
 
                   <div className="metaDataBox">
                     <img src={dateImg} alt="" />
-                    <p className="appointmentDate">{appointment.appointmentDate}</p>
+                    <p className="appointmentDate">
+                      {appointment.appointmentDate}
+                    </p>
                   </div>
 
                   <div className="metaDataBox">
                     <img src={timeImg} alt="" />
-                    <p className="appointmentTime">{appointment.appointmentTime}</p>
+                    <p className="appointmentTime">
+                      {appointment.appointmentTime}
+                    </p>
                   </div>
                 </div>
-                <p className="appointmentFor">
-                  {appointment.appointmentFor}
-                </p>
+                <p className="appointmentFor">{appointment.appointmentFor}</p>
                 <div className="actions">
                   <Button variant="contained">Confirm</Button>
                   <Button>Message</Button>

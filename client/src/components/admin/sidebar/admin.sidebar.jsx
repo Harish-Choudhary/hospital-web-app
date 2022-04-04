@@ -1,161 +1,201 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import { List, ListItem, ListItemText, ListItemButton, Box, ListItemIcon } from '@mui/material';
-import PaletteIcon from '@mui/icons-material/Palette';
-import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
-import AddIcon from '@mui/icons-material/Add';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import Collapse from '@mui/material/Collapse';
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import './admin.sidebar.css'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import "./sidebar.styles.css";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import InboxIcon from "@mui/icons-material/Inbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import { useNavigate } from "react-router-dom";
+import SignalCellularAltRoundedIcon from '@mui/icons-material/SignalCellularAltRounded';
+import { fontWeight } from "@mui/system";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import BloodtypeRoundedIcon from '@mui/icons-material/BloodtypeRounded';
+import EventNoteRoundedIcon from '@mui/icons-material/EventNoteRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
+export const SideBar = ({active}) => {
 
+  const navigate = useNavigate()
 
+  const redirectToDashboard = () => {
+    navigate({
+      pathname: "/hospital/dashboard/"
+    })
+  }
 
-// const [showDashboard,setShowDashboard] = useState(true);
-// const [showAddDoctor, setShowAddDoctor] = useState(false);
-// const [showDoctors, setShowDoctors] = useState(false);
-// const [showAppointments, setShowAppointments] = useState(false);
+  const redirectToAddDoctor = () => {
+    navigate({
+      pathname: "/hospital/dashboard/add/doctor/"
+    })
+  }
 
+  const redirectToShowDoctor = () => {
+    navigate({
+      pathname: "/hospital/dashboard/show/doctors"
+    })
+  }
 
+  const redirectToAppointments = () => {
+    navigate({
+      pathname: "/hospital/dashboard/appointments/"
+    })
+  }
 
-export const SideBar = ({setShowAddDoctor, setShowAppointments, setShowDashboar, setShowDoctors}) => {
+  const redirectToSettings = () => {
+    navigate({
+      pathname: "/hospital/dashboard/settings/"
+    })
+  }
 
-    const navigate = useNavigate()
+  const logoutAdmin = () => {
+    console.log("admin logout")
+  }
 
-    const [openDoctors, setOpenDoctors] = React.useState(false);
-    const [openAppointments, setOpenAppointments] = React.useState(false);
-    const [open, setOpen] = React.useState(false)
+  return (
+    <div className="sidebar">
+      <div className="logo">
+        <p className="adminLogo">HealthAura</p>
+      </div>
 
-    const handleClickDoctor = () => {
-        setOpenDoctors(!openDoctors);
-    };
+      <div onClick={redirectToSettings} className="adminProfile">
+        <Avatar src="" alt="Remy Sharp" />
+        <p>Aditya Birla...</p>
+      </div>
 
-    const handleClickAppointments = () => {
-        setOpenAppointments(!openAppointments);
-    };
+      <hr color="#757575" />
 
-    const setAddDoctor = () => {
-        setShowAddDoctor(true)
-        setShowAppointments(false);
-        setShowDashboar(false);
-        setShowDoctors(false)
-    }
+      <List sx={{margin: "20px 0"}}>
 
-    const showAllDoctPage = () => {
-        setShowAddDoctor(false)
-        setShowAppointments(false);
-        setShowDashboar(false);
-        setShowDoctors(true)
-    }
+        <ListItem sx={ active == 'Dashboard' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600"
+        } : {
+          margin: "15px 0"
+        }} onClick={redirectToDashboard}>
+          <ListItemButton>
+            <ListItemIcon>
+              <SignalCellularAltRoundedIcon sx={active == 'Dashboard' ? {
+                color: "#1976d2"
+              }: {color : "white"}} />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItemButton>
+        </ListItem> 
 
-    const showAppointments = () => {
-        setShowAddDoctor(false)
-        setShowAppointments(true);
-        setShowDashboar(false);
-        setShowDoctors(false)
-    }
+        <ListItem sx={ active == 'Add Doctor' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600"
+        } : {
+          margin: "15px 0"
+        }} onClick={redirectToAddDoctor}>
+          <ListItemButton>
+            <ListItemIcon>
+              <AddRoundedIcon sx={active == 'Add Doctor' ? {
+                color: "#1976d2"
+              }: {color : "white"}}  />
+            </ListItemIcon>
+            <ListItemText primary="Add Doctor" />
+          </ListItemButton>
+        </ListItem> 
 
-    const showDashboard = () => {
-        setShowAddDoctor(false)
-        setShowAppointments(false);
-        setShowDashboar(true);
-        setShowDoctors(false)
-    }
+        <ListItem sx={ active == 'Show Doctors' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600"
+        } : {
+          margin: "15px 0"
+        }} onClick={redirectToShowDoctor}>
+          <ListItemButton>
+            <ListItemIcon>
+              <BloodtypeRoundedIcon sx={active == 'Show Doctors' ? {
+                color: "#1976d2"
+              }: {color : "white"}}  />
+            </ListItemIcon>
+            <ListItemText primary="Show Doctors" />
+          </ListItemButton>
+        </ListItem> 
 
-    
-    return (
-        <div className="Sidebar">
-            <div className='Upper'>
-                <div className='DashboardLogo'>
-                    <h1>HealthAura</h1>
-                </div>
-            </div>
+        <ListItem sx={ active == 'Appointments' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600"
+        } : {
+          margin: "15px 0"
+        }} onClick={redirectToAppointments}>
+          <ListItemButton>
+            <ListItemIcon>
+              <EventNoteRoundedIcon sx={active == 'Appointments' ? {
+                color: "#1976d2"
+              }: {color : "white"}}  />
+            </ListItemIcon>
+            <ListItemText primary="Appointments" />
+          </ListItemButton>
+        </ListItem> 
 
-            <div className='Lower'>
-                <Box sx={{fontFamily: "poppins"}}>
-                    <List sx={{fontFamily: "poppins"}}>
-                        <ListItem disablePadding onClick={showDashboard}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <PaletteIcon />
-                                </ListItemIcon>
-                                <ListItemText sx={{fontFamily: "poppins"}} primary="Dashboard" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding >
-                        </ListItem>
+        <ListItem sx={ active == 'Settings' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600",
+          fontFamily: "poppins"
+        } : {
+          margin: "15px 0"
+        }} onClick={redirectToSettings}>
+          <ListItemButton>
+            <ListItemIcon>
+              <SettingsRoundedIcon sx={active == 'Settings' ? {
+                color: "#1976d2"
+              }: {color : "white"}}  />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
+          </ListItemButton>
+        </ListItem> 
 
-                        <ListItemButton onClick={handleClickDoctor}>
-                            <ListItemIcon>
-                                <MedicalServicesIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Doctors" />
-                            {openDoctors ? <ExpandLess /> : <ExpandMore />}
-                        </ListItemButton>
-                        <Collapse in={openDoctors} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding onClick={setAddDoctor}>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
-                                        <AddIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Add Doctor" />
-                                </ListItemButton>
-                            </List>
-                            <List component="div" onClick={showAllDoctPage}>
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
-                                        <VisibilityIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="All Doctors" />
-                                </ListItemButton>
-                            </List>
-                        </Collapse>
+        <ListItem sx={ active == 'Logout' ? {
+          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          borderRadius: "6px",
+          margin: "15px 0",
+          color: "#1976d2",
+          fontWeight: "600",
+          fontFamily: "poppins"
+        } : {
+          margin: "15px 0"
+        }} onClick={logoutAdmin}>
+          <ListItemButton>
+            <ListItemIcon>
+              <LogoutRoundedIcon sx={active == 'Logout' ? {
+                color: "#1976d2"
+              }: {color : "white"}}  />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem> 
 
-                        <ListItemButton onClick={handleClickAppointments}>
-                            <ListItemIcon>
-                                <GroupAddIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Appointments" />
-                            {openAppointments ? <ExpandLess /> : <ExpandMore />}
-                        </ListItemButton>
-                        <Collapse in={openAppointments} timeout="auto" unmountOnExit>
+      </List>
+    </div>
+  );
+};
 
-
-                            <List component="div" disablePadding onClick={showAppointments}>
-                                <ListItemButton sx={{ pl: 4 }} >
-                                    <ListItemIcon >
-                                        <VisibilityIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="All Appointments" />
-                                </ListItemButton>
-                            </List>
-                        </Collapse>
-
-
-                        <ListItem disablePadding >
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <SettingsIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Settings" />
-                            </ListItemButton>
-
-                        </ListItem>
-                    </List>
-                </Box>
-            </div>
-        </div>
-    );
-}
+/*
+  Dashboard
+  add doctor
+  all doctors
+  appointments
+  settings
+*/

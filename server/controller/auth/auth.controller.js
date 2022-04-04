@@ -4,6 +4,7 @@ const { hashSync, genSaltSync, compareSync} = require ('bcrypt');
 //using this for cookies purpose
 const { sign , verify } = require('jsonwebtoken');
 const nodeMailer = require("nodemailer");
+
 exports.signUp = (req,res) =>{
 
     const { userEmail, userPassword, userName , userPhone, userCity } = req.body;
@@ -85,24 +86,19 @@ exports.signIn = (req,res) =>{
         }
         else if(data.length==1)
         {
-
                 let comparePassword  = compareSync(userPassword,data[0].password);
-
                 //if password matches
                 if(comparePassword == true){
-                    
-                    //generate the token and set cookie for the user session
+                //generate the token and set cookie for the user session
                     const userToken = sign({
                         userEmail : userEmail
                     },process.env.secretKey,{
                         expiresIn : '24h'
                     })
 
-
                     res.cookie("AuthToken",userToken,{
                         expires : new Date(Date.now() + 86400000)
                     })
-
 
                     res.send({
                         msg:"login successfully",
@@ -119,19 +115,17 @@ exports.signIn = (req,res) =>{
                 }
         }
         else{
-
             res.send({
                 msg: 'Email not found. Try to register',
                 code:2
             })
-        }
-          
+        } 
     })
  }
 
 
 
- exports.verifyEmail = (req,res) =>{
+exports.verifyEmail = (req,res) =>{
 
     const OTP = String(Math.floor(100000 + Math.random()*899999));
     // math.random return between 0 and 1 => 1
@@ -177,7 +171,6 @@ exports.signIn = (req,res) =>{
     transporter.sendMail(template,(err,success)=>{
 
         if(err){
-
             console.log(err)
             res.send({
                 msg:"Something went wrong while sending the mail",

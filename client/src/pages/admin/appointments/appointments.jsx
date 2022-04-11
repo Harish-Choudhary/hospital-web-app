@@ -7,14 +7,22 @@ import doctorImg from "../../../images/medical-team.png";
 import dateImg from "../../../images/calendar (1).png";
 import timeImg from "../../../images/back-in-time.png";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Appointments = () => {
   const [doctorImage, setDoctorImage] = useState("");
   const [appointments, setAppointments] = useState([]);
   const [hospitalId, setHospitalId] = useState("");
+  const [email, setEmail] = useState("");
+  const [clickedAppointEmail, setClickedAppointEmail] = useState("");
+  const [status, setStatus] = useState("pending");
+
 
   const navigate = useNavigate();
+
+  let { id } = useParams();
+
+  // console.log("paramsssss", id);
 
   useEffect(() => {
     Axios.get("http://localhost:5000/auth/checkIsLogin", {
@@ -22,25 +30,13 @@ export const Appointments = () => {
     }).then((res) => {
       if (res.data.isLogin) {
         setHospitalId(res.data.id);
-      } else {
+        setEmail(res.data.email)
+      } else { 
         navigate("/");
       }
     });
 
-    Axios.get("http://localhost:5000/auth/checkIsLogin", {
-      withCredentials: true,
-    }).then((res) => {
-      if (!res.data.isLogin) {
-        navigate("/");
-      }
-    });
-
-    getAppointments();
-  }, []);
-
-
-  const getAppointments = () => {
-    Axios.get(`http://localhost:5000/book/show/appointments/${hospitalId}`, {
+    Axios.get(`http://localhost:5000/book/show/appointments/${id}`, {
       withCredentials: true,
     })
       .then((res) => {
@@ -49,9 +45,19 @@ export const Appointments = () => {
       .catch((err) => {
         console.log(err);
       });
-  };
 
-  // console.log(appointments);
+    Axios.get("http://localhost:5000/auth/checkIsLogin", {
+      withCredentials: true,
+    }).then((res) => {
+      if (!res.data.isLogin) {
+        navigate("/");
+      }
+    });
+  }, []);
+
+
+
+  console.log(appointments);
 
   return (
     <div className="addDoctorComponent">
@@ -71,7 +77,7 @@ export const Appointments = () => {
 
           <div className="appointmentsList">
             {appointments.map((appointment) => (
-              <div className="appointmentBox">
+              <div key={appointment.userEmail} className="appointmentBox">
                 <p className="paitentName">{appointment.userName}</p>
                 <div className="appointmentMetaData">
                   <div className="metaDataBox">
@@ -95,8 +101,23 @@ export const Appointments = () => {
                 </div>
                 <p className="appointmentFor">{appointment.appointmentFor}</p>
                 <div className="actions">
-                  <Button variant="contained">Confirm</Button>
-                  <Button>Message</Button>
+                  {
+                    console.log("asdasdasdasdasdasd", appointment.userEmail)
+                  }
+                  <Button variant="contained" onClick={() => {
+                    Axios.get(`http://localhost:5000/book/confirm/appointment/${appointment.userEmail}`,{
+                      withCredentials: true,
+                    })
+                      .then((res) => setStatus(res.data.status))
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }}>
+                    {appointment.status === "confirm" ? "Booked" : "Confirm"}
+                  </Button>
+                  {
+                    appointment.pdf.length != 0 ? <Button href={`http://localhost:3000/pdfs/${appointment.pdf}`} target="_blank">Open PDF</Button> : null
+                  }
                 </div>
               </div>
             ))}

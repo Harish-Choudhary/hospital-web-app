@@ -1,0 +1,25 @@
+.heroArea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 90%;
+    margin: auto;
+}
+
+
+.heroImage{
+    background-image: url(http://localhost:3000/static/media/city-hospital-building_74855-6301.0306fce….webp);
+    width: 73%;
+    background-position: center;
+    background-size: contain;
+}
+
+.leftHeroArea > h2{
+    font-size: 32px;
+    margin: 15px 0px;
+}
+
+.leftHeroArea > p{
+    margin-bottom: 15px;
+    color: gray;
+}

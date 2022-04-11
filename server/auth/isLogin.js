@@ -31,8 +31,7 @@ exports.isLogin = (req, res) => {
               }
             }
           );
-        } 
-        else if (succ.userEmail) {
+        } else if (succ.userEmail) {
           db.query(
             "select * from users where email = ?",
             [succ.userEmail],
@@ -57,5 +56,49 @@ exports.isLogin = (req, res) => {
       isLogin: false,
     });
   }
-  // console.log(userToken)
+};
+
+exports.getUserData = (req, res) => {
+  const userEmail = req.params.userEmail;
+  db.query("select * from users where email = ?", [userEmail], (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(data);
+    }
+  });
+};
+
+exports.getHospitalData = (req, res) => {
+  const hospitalId = req.params.hospitalId;
+  db.query(
+    "select * from hospital_registration where hospital_registration_nos = ?",
+    [hospitalId],
+    (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data);
+        res.send(data);
+      }
+    }
+  );
+};
+
+exports.deleteHospital = (req, res) => {
+  const hospitalId = req.params.hospitalId;
+  console.log(hospitalId)
+  // db.query(
+  //   "delete from hospital_registration where hospital_registration_nos = ?",
+  //   [hospitalId],
+  //   (err, data) => {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log(data);
+  //       res.clearCookie("AuthToken");
+  //       res.redirect("/");
+  //     }
+  //   }
+  // );
 };

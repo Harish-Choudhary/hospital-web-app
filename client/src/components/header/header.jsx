@@ -40,6 +40,10 @@ const [userImg, setUserImg] = useState("")
   };
   console.log(userImg)
 
+  const redirectToProfile = () => {
+    navigate("/user/profile");
+  }
+
   return (
     <div className="header">
       <div className="logo">
@@ -51,7 +55,7 @@ const [userImg, setUserImg] = useState("")
         <p>Contact</p>
         <div className="profile">
           {isLogin ? (
-            <div style={{display: "flex", alignItems: "center"}}>
+            <div onClick={redirectToProfile} style={{display: "flex", alignItems: "center"}}>
               <p
                 style={{
                     color: "#2774f8",

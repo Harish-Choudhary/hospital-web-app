@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./sidebar.styles.css";
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
@@ -17,10 +17,32 @@ import BloodtypeRoundedIcon from '@mui/icons-material/BloodtypeRounded';
 import EventNoteRoundedIcon from '@mui/icons-material/EventNoteRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import Axios from "axios";
 
 export const SideBar = ({active}) => {
 
   const navigate = useNavigate()
+  const [hospitalId, setHospitalId] = useState("")
+
+  useEffect(() => {
+    Axios.get("http://localhost:5000/auth/checkIsLogin", {
+      withCredentials: true,
+    }).then((res) => {
+      if (res.data.isLogin) {
+        setHospitalId(res.data.id);
+      } else {
+        navigate("/");
+      }
+    });
+
+    Axios.get("http://localhost:5000/auth/checkIsLogin", {
+      withCredentials: true,
+    }).then((res) => {
+      if (!res.data.isLogin) {
+        navigate("/");
+      }
+    });
+  }, []);
 
   const redirectToDashboard = () => {
     navigate({
@@ -42,7 +64,7 @@ export const SideBar = ({active}) => {
 
   const redirectToAppointments = () => {
     navigate({
-      pathname: "/hospital/dashboard/appointments/"
+      pathname: `/hospital/dashboard/appointments/${hospitalId}`
     })
   }
 
@@ -63,8 +85,8 @@ export const SideBar = ({active}) => {
       </div>
 
       <div onClick={redirectToSettings} className="adminProfile">
-        <Avatar src="" alt="Remy Sharp" />
-        <p>Aditya Birla...</p>
+        {/* <Avatar src="" alt="Remy Sharp" /> */}
+        <p>Profile</p>
       </div>
 
       <hr color="#757575" />

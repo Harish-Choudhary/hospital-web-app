@@ -1,5 +1,5 @@
 import { Avatar, Button, styled } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AdminHeader } from "../../../components/admin/header/header";
 import { SideBar } from "../../../components/admin/sidebar/sidebar.component";
 import "./settings.styles.css";
@@ -12,6 +12,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Axios from "axios";
 
 const Input = styled("input")({
   display: "none",
@@ -22,6 +23,10 @@ export const SettingPage = () => {
   const [hospitalImage, setHospitalImage] = useState("");
   const [changePasswordDialoug, setChangePasswordDialoug] = useState(false);
   const [cloaseAccountDialoug, setCloaseAccountDialoug] = useState(false);
+  const [hospitalId, setHospitalId] = useState("");
+  const [hospitalData, setHospitalData] = useState([]);
+
+  const navigate = useNavigate();
 
   const uploadHospitalImage = (e) => {
     const reader = new FileReader();
@@ -32,6 +37,38 @@ export const SettingPage = () => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
+
+  useEffect(() => {
+    Axios.get("http://localhost:5000/auth/checkIsLogin", {
+      withCredentials: true,
+    }).then((res) => {
+      if (res.data.id) {
+        setHospitalId(res.data.id);
+      } else {
+        navigate("/");
+      }
+    });
+
+    Axios.get(`http://localhost:5000/auth/get/user/data/${hospitalId}`)
+      .then((res) => {
+        console.log(res);
+        setHospitalData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [hospitalId]);
+
+  console.log(hospitalId + "alkdlkajsldnlkasjlkjas");
+
+
+  const closeAccount = () => {
+    Axios.get(`http://localhost:5000/auth/delete/hospital/account/${hospitalId}`).then(res => {
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   return (
     <div style={{ display: "flex" }}>
@@ -76,7 +113,6 @@ export const SettingPage = () => {
             }
             className="editHospitalSettings"
           >
-            <p>Edit Hospital</p>
           </div>
         </div>
 
@@ -91,20 +127,20 @@ export const SettingPage = () => {
                 }}
                 className="editInfoBtn"
               >
-                <Button
-                  sx={{ textTransform: "none" }}
-                  endIcon={<ArrowRightAltRoundedIcon />}
-                  onClick={() => setActiveTab("editHospital")}
-                >
-                  Edit Info
-                </Button>
               </div>
               <p className="profileHeading">Profile Details</p>
               <div className="avatarSection">
-                <Avatar
-                  style={{ width: "70px", height: "70px", marginRight: "15px" }}
-                  src={hospitalImage}
-                />
+                {hospitalData.map((hospital) => (
+                  <Avatar
+                    key={hospital.hospital_registration_nos}
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                      marginRight: "15px",
+                    }}
+                    src={`/uploads/${hospital.image}`}
+                  />
+                ))}
                 <label htmlFor="icon-button-file">
                   <Input
                     onChange={uploadHospitalImage}
@@ -126,50 +162,36 @@ export const SettingPage = () => {
               {/* <p style={{ margin: "20px 0 10px 0" }} className="profileHeading">
                 Your Info
               </p> */}
-              <div className="userInfoDisplay">
-                <div>
-                  <p className="userInfoHospitalName">Hospital Name</p>
-                  <p className="userInfoHospitalValue">
-                    Aditya Birla Memorial Hospital
-                  </p>
+              {hospitalData.map((hospital) => (
+                <div
+                  key={hospital.hospital_registration_nos}
+                  className="userInfoDisplay"
+                >
+                  <div>
+                    <p className="userInfoHospitalName">Hospital Name</p>
+                    <p className="userInfoHospitalValue">
+                      {hospital.hospital_name}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="userInfoAdminName">Admin Name</p>
+                    <p className="userInfoHospitalValue">
+                      {hospital.user_name}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="userInfoAdminName">Admin Name</p>
-                  <p className="userInfoHospitalValue">Harish Choudhary</p>
-                </div>
-              </div>
+              ))}
               <div>
                 <p className="userInfoHospitalName">Hospital Information</p>
-                <p className="userInfoHospitalValue">
-                  Aditya Birla Memorial Hospital is a multi-speciality medical
-                  centre in Pune, India. The hospital is named for Aditya Birla.
-                  Rajashree Birla, chairperson of the Aditya Birla Foundation
-                  which is funding the medical centre, is steering this project.
-                </p>
+                {hospitalData.map((hospital) => (
+                  <p
+                    key={hospital.hospital_registration_nos}
+                    className="userInfoHospitalValue"
+                  >
+                    {hospital.about}
+                  </p>
+                ))}
               </div>
-            </div>
-
-            <div className="changePassword">
-              <p className="headingTitle">Change Password</p>
-              <p className="metaDataForCPCA">
-                Make sure your account password is strong, and don't share it
-                with anyone.
-              </p>
-              <p
-                onClick={() => setChangePasswordDialoug(true)}
-                className="changePasswordBtn"
-              >
-                Change Password
-              </p>
-            </div>
-
-            <div className="closeAccount">
-              <p className="headingTitle">Close Account</p>
-              <p className="metaDataForCPCA">
-                You can permanently delete you Hospital Account, If you want to
-                Re-Add the hospital you'll need to create new account.
-              </p>
-              <p className="changePasswordBtn">Close Account</p>
             </div>
           </div>
         ) : null}
@@ -184,7 +206,8 @@ export const SettingPage = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ fontFamily: "poppins" }}>
-              Enter the email id of which you wish to change the password, An OTP will be shared to you email id to confirm the email.
+              Enter the email id of which you wish to change the password, An
+              OTP will be shared to you email id to confirm the email.
             </DialogContentText>
             <TextField
               autoFocus
@@ -195,11 +218,16 @@ export const SettingPage = () => {
               fullWidth
             />
           </DialogContent>
-          <DialogActions >
-            <Button sx={{ fontFamily: "poppins", textTransform:"none" }} onClick={() => setChangePasswordDialoug(false)}>
+          <DialogActions>
+            <Button
+              sx={{ fontFamily: "poppins", textTransform: "none" }}
+              onClick={() => setChangePasswordDialoug(false)}
+            >
               Cancel
             </Button>
-            <Button sx={{ fontFamily: "poppins", textTransform:"none" }}>Send OTP</Button>
+            <Button sx={{ fontFamily: "poppins", textTransform: "none" }}>
+              Send OTP
+            </Button>
           </DialogActions>
         </Dialog>
 
@@ -212,7 +240,8 @@ export const SettingPage = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ fontFamily: "poppins" }}>
-              Enter the email id of which you wish to change the password, An OTP will be shared to you email id to confirm the email.
+              Enter the email id of which you wish to change the password, An
+              OTP will be shared to you email id to confirm the email.
             </DialogContentText>
             <TextField
               autoFocus
@@ -223,11 +252,16 @@ export const SettingPage = () => {
               fullWidth
             />
           </DialogContent>
-          <DialogActions >
-            <Button sx={{ fontFamily: "poppins", textTransform:"none" }} onClick={() => setChangePasswordDialoug(false)}>
+          <DialogActions>
+            <Button
+              sx={{ fontFamily: "poppins", textTransform: "none" }}
+              onClick={() => setChangePasswordDialoug(false)}
+            >
               Cancel
             </Button>
-            <Button sx={{ fontFamily: "poppins", textTransform:"none" }}>Send OTP</Button>
+            <Button sx={{ fontFamily: "poppins", textTransform: "none" }}>
+              Send OTP
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

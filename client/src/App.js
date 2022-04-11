@@ -13,18 +13,21 @@ import Axios from "axios";
 import { createContext } from "react";
 import { Appointments } from "./pages/admin/appointments/appointments";
 import { AdminSignUpPage } from "./pages/auth/admin.auth/admin.auth";
+import { ProfilePage } from "./pages/users/profile/profile.page";
 
 export const ContextApi = createContext();
 
 export const App = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [hospitalId, setHospitalId] = useState("");
+  const [email, userEmail] = useState("");
   useEffect(() => {
     Axios.get("http://localhost:5000/auth/checkIsLogin", {
       withCredentials: true,
     }).then((res) => {
       if (res.data.isLogin) {
         setIsLogin(true);
+        userEmail(res.data.email)
       } else {
         setIsLogin(false);
       }
@@ -32,7 +35,7 @@ export const App = () => {
   }, [setIsLogin]);
 
   const data = {
-    isLogin: isLogin
+    isLogin: isLogin,
   };
 
   return (
@@ -58,9 +61,10 @@ export const App = () => {
             element={<ShowDoctors />}
           />
           <Route
-            path="/hospital/dashboard/appointments"
+            path="/hospital/dashboard/appointments/:id"
             element={<Appointments />}
           />
+          <Route path="/user/profile" element={<ProfilePage email={email} />} />
           <Route
             path="/hospital/dashboard/settings"
             element={<SettingPage />}

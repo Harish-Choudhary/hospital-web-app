@@ -40,7 +40,7 @@ export const AdminHomePage = () => {
             <div className="singleOverViewBox">
               <div className="leftAreaOA">
                 <p>Total Doctors</p>
-                <p className="number">26</p>
+                <p className="number">2</p>
               </div>
               <div className="rightAreaOA">
                 <img src={doctorImage} alt="" />
@@ -50,7 +50,7 @@ export const AdminHomePage = () => {
             <div className="singleOverViewBox">
               <div className="leftAreaOA">
                 <p>Total Appointments</p>
-                <p className="number">26</p>
+                <p className="number">2</p>
               </div>
               <div className="rightAreaOA">
                 <img src={appointmentsImage} alt="" />
@@ -61,7 +61,7 @@ export const AdminHomePage = () => {
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div className="leftAreaOA">
                   <p>Completed Appointments</p>
-                  <p className="number">26</p>
+                  <p className="number">2</p>
                 </div>
                 <div className="rightAreaOA">
                   <img src={completedAppointmentsImage} alt="" />

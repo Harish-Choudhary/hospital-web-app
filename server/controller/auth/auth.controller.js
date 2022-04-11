@@ -139,8 +139,8 @@ exports.verifyEmail = (req,res) =>{
 
         service:"gmail",
         auth: {
-            user:"darshanshah3010@gmail.com",
-            pass:"zadquwvvwcqzwtnm"
+            user:"codewithrahulnikam@gmail.com",
+            pass:"cxeoafezragksqvs"
         }
     })
 

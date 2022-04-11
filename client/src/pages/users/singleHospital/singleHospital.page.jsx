@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import { HospitalHeroArea } from "../../../components/user/singleHospital/HospitalHeroArea.component";
@@ -25,6 +25,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { styled } from '@mui/material/styles';
+
+
+const Input = styled('input')({
+  display: 'none',
+});
+
 
 export const SingleHospitalPage = () => {
   const [singleHospitalData, setSingleHospitalData] = React.useState([]);
@@ -43,6 +50,19 @@ export const SingleHospitalPage = () => {
   const [userEmail, setUserEmail] = React.useState("");
   const [msg, setMsg] = React.useState("");
   const [showMsg, setShowMsg] = React.useState(false);
+
+  const [pdf, setPdf] = useState({})
+  const [pdfName, setPdfName] = useState("")
+
+
+  const getUploadedFile = (e) => {
+    setPdf(e.target.files[0]);
+    setPdfName(e.target.files[0].name)
+  }
+
+
+  console.log(pdf)
+  console.log(pdfName)
 
   const navigate = useNavigate();
 
@@ -99,15 +119,18 @@ export const SingleHospitalPage = () => {
   };
 
   const bookAppointment = (doctorName) => {
+
+    let formData = new FormData()
+    formData.append("file", pdf);
+    formData.append("userName", userName)
+    formData.append("treatmentFor", treatmentName)
+    formData.append("selectedDoctor", selecteDoctorName)
+    formData.append("appointmentDate", dateString)
+    formData.append("appointmentTime", timeString)
+    formData.append("userEmail", userEmail)
+
     setIsLoading(true);
-    Axios.post(`http://localhost:5000/book/appointment/${hospitalId}`, {
-      userName: userName,
-      treatmentFor: treatmentName,
-      selectedDoctor: selecteDoctorName,
-      appointmentDate: dateString,
-      appointmentTime: timeString,
-      userEmail: userEmail,
-    })
+    Axios.post(`http://localhost:5000/book/appointment/${hospitalId}`, formData)
       .then((res) => {
         setIsLoading(false);
         if (res.data.code == 1) {
@@ -134,7 +157,7 @@ export const SingleHospitalPage = () => {
   const closeMsgDialog = () => {
     setOpen(false);
     showMsg(false);
-  }
+  };
 
   return (
     <div>
@@ -245,7 +268,7 @@ export const SingleHospitalPage = () => {
               ) : (
                 <div>
                   <DialogTitle sx={{ fontFamily: "poppins" }}>
-                    {"Book an Appointment in Nikam Hospital"}
+                    {"Book an Appointment"}
                   </DialogTitle>
                   {isLoading ? (
                     <Skeleton
@@ -342,7 +365,20 @@ export const SingleHospitalPage = () => {
                                   />
                                 </LocalizationProvider>
                               </div>
+
                             </div>
+                              <label htmlFor="contained-button-file">
+                                <Input
+                                  accept="image/*"
+                                  id="contained-button-file"
+                                  multiple
+                                  type="file"
+                                  onChange={getUploadedFile}
+                                />
+                                <Button variant="contained" component="span">
+                                  Upload File
+                                </Button>
+                              </label>
                           </DialogContentText>
                         </DialogContent>
                       ) : (
